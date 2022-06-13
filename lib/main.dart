@@ -5,6 +5,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather_app/weather.dart';
+import 'weatherModel.dart';
 
 import 'province.dart';
 import 'city.dart';
@@ -125,9 +126,11 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-  void pindahPage(BuildContext context) {
+  void pindahPage(BuildContext context) async {
     String nameToSend = this.name;
     String cityToSend = this.namaKota;
-    Navigator.push(context, MaterialPageRoute(builder: (context) => WeatherApp(nama: nameToSend, kota: cityToSend,)));
+    final weatherData = await getDataJson().getWeather(cityToSend);
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => WeatherApp(nama: nameToSend, kota: cityToSend, weatherData: weatherData,)));
   }
 }
