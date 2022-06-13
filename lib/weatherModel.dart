@@ -21,14 +21,10 @@ class getDataJson {
     //   final json = jsonDecode(response.body);
     //
     // }
-    print(response.body);
-    // print(namaKota);
 
     final json = jsonDecode(response.body);
 
     final weatherTest = WeatherModel.fromJson(json);
-
-    print(weatherTest.city.name);
 
     return WeatherModel.fromJson(json);
   }

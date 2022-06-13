@@ -129,8 +129,21 @@ class _MyAppState extends State<MyApp> {
   void pindahPage(BuildContext context) async {
     String nameToSend = this.name;
     String cityToSend = this.namaKota;
-    final weatherData = await getDataJson().getWeather(cityToSend);
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => WeatherApp(nama: nameToSend, kota: cityToSend, weatherData: weatherData,)));
+    try {
+      final weatherData = await getDataJson().getWeather(cityToSend);
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>
+          WeatherApp(
+            nama: nameToSend, kota: cityToSend, weatherData: weatherData,)));
+    } catch(error) {
+      return showDialog(context: context, barrierDismissible: true, builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Kota tidak ditemukan'),
+          content: SingleChildScrollView(
+            child: Text('Silahkan Coba dengan Kota lain'),
+          ),
+        );
+      });
+    }
   }
 }

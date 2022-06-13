@@ -194,15 +194,29 @@ class _WeatherAppState extends State<WeatherApp> {
 
   _temprature() {
     return Text(
-      '${widget.weatherData.list[0].main.temp}',
+      '${widget.weatherData.list[0].main.temp}\u2103',
       style: TextStyle(
-        fontSize: 80,
+        fontSize: 70,
         fontWeight: FontWeight.w100,
       ),
     );
   }
 
   _greetingName() {
-    return Text('Selamat Pagi ${widget.nama}');
+    return Text('Selamat ${greeting()} ${widget.nama}');
+  }
+
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Pagi';
+    }
+    if (hour < 17) {
+      return 'Siang';
+    }
+    if (hour < 20) {
+      return 'Sore';
+    }
+    return 'Malam';
   }
 }
